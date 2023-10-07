@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es-VE">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +8,38 @@
   <script type="module" src="./index.js"></script>
 </head>
 <body>
-  
+  <div class="container">
+    <header class="header">
+      <form action="#" class="header-form">
+        <label for="calendar">
+          Fecha
+          <input type="date" id="calendar">
+        </label>
+        <label for="subject">
+          Materia
+          <select id="subject-list">
+            <option value="">Selecciona la materia</option>
+            <option value="">Castellano</option>
+            <option value="">Matemática</option>
+            <option value="">Biología</option>
+            <option value="">Geografía e Historia</option>
+            <option value="">Informática</option>
+            <option value="">Arte y Patrimonio</option>
+            <option value="">Inglés</option>
+            <option value="">Portugués</option>
+            <option value="">Agricultura urbana</option>
+            <option value="">Educación física</option>
+            <option value="">Técnica de oficina</option>
+            <option value="">Orientación y Convivencia</option>
+          </select>
+        </label>
+        <label for="input-assignment">Compromiso
+          <input type="text" id="input-assignment">
+        </label>
+        <button type="button" id="btn-add-assignment">Agregar</button>
+      </form>
+    </header>
+    <div class="assignment-container"></div>
+  </div>
 </body>
 </html>
