@@ -89,15 +89,15 @@ const MONTHS = [
 ]
 
 class AssignmentComponent extends HTMLElement {
-  constructor(props) {
+  constructor({id, date, subject, assignment}) {
     super()
-    this.id = props.id;
-    this.dayOfWeek = DAYS[props.date.dayOfWeek];
-    this.dayOfMonth = props.date.day;
-    this.month = MONTHS[props.date.month];
-    this.year = props.date.year;
-    this.subject = props.subject;
-    this.assignment = props.assignment;
+    this.id = id;
+    this.dayOfWeek = DAYS[date.dayOfWeek];
+    this.dayOfMonth = date.day;
+    this.month = MONTHS[date.month];
+    this.year = date.year;
+    this.subject = subject;
+    this.assignment = assignment;
     this.isPending = true;
   }
 
