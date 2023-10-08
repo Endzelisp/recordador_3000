@@ -112,8 +112,10 @@ class AssignmentComponent extends HTMLElement {
     subjectPara.textContent = this.subject;
     assignmentPara.textContent = this.assignment;
     
-    const divDate = document.createElement('div');
+    const pushpinSpan = document.createElement('span');
+    pushpinSpan.textContent = '📌';
     const datePara = document.createElement('p');
+    datePara.setAttribute('id', 'assignment-date')
     const statusBtn = document.createElement('button');
     statusBtn.setAttribute('data-type', 'status-button')
 
@@ -138,9 +140,8 @@ class AssignmentComponent extends HTMLElement {
       }
 
     })
-    
-    divDate.append(datePara, statusBtn)
-    this.append(subjectPara, assignmentPara, divDate);
+
+    this.append(pushpinSpan, subjectPara, assignmentPara, datePara, statusBtn);
   }
 
   disconnectedCallback() {

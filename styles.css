@@ -67,29 +67,48 @@
 
 .assignment {
   --icon-font-size: 1.25rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 6fr 1fr;
+  grid-template-rows: repeat(3, auto);
+  grid-template-areas:
+    'pushpin subject status'
+    'pushpin assignment status'
+    'pushpin date status';
   padding-inline: 8px;
   padding-block: 8px;
   border-bottom: 2px solid var(--color-deeppink);
 }
 
-.assignment > :first-child::before {
-  content: '📌';
-  padding-inline-end: 8px;
+.assignment p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.assignment > span {
+  grid-area: pushpin;
+  align-self: center;
   font-size: var(--icon-font-size);
 }
 
-.assignment > div {
-  display: flex;
-  align-items: center;
-  gap: 4px;
+.assignment > p#subject-text {
+  grid-area: subject;
+  text-align: center;
+  font-weight: 800;
 }
 
-.assignment button[data-type="status-button"] {
+.assignment > p#assignment-text {
+  grid-area: assignment;
+}
+
+.assignment > p#assignment-date {
+  grid-area: date;
+}
+
+.assignment > button {
   border: none;
-  font-size: var(--icon-font-size);
+  grid-area: status;
+  font-size: 1.25rem;
+  background-color: transparent;
 }
 
 .dialog-modal#completedAssignment {
