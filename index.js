@@ -40,6 +40,20 @@ const createAssignmentObject = function(date, subject, assignment) {
   }
 }
 
+const writeLocalStrg = function (array) {
+  localStorage.setItem("storage", JSON.stringify(array));
+}
+
+const readLocalStrg = function () {
+  try {
+    const storage = JSON.parse(localStorage?.storage);
+    if (Array.isArray(storage)) return storage;
+  } catch (error) {
+    delete localStorage.storage;
+    return [];
+  }
+}
+
 let activeAssignments = [];
 
 const SUBJECTS = {
