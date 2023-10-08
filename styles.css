@@ -23,20 +23,31 @@
 }
 
 .header {
+  --v-padding: 16px;
   position: sticky;
   top: 0;
   background-color: var(--color-light-blue);
-  padding-inline: 16px;
-  padding-block: 16px;
   color: var(--color-white);
+  padding-block-start: var(--v-padding);
 }
 
 .header-form {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 24px;
   flex-wrap: wrap;
+}
+
+.header-form input, .header-form select {
+  background-color: var(--color-white);
+  border: none;
+}
+
+.header-form > div {
+  display: flex;
+  justify-content: space-around;
+  align-items:flex-end;
+  padding-block-end: 16px;
+  width: 100vw;
 }
 
 .header-form label {
@@ -44,7 +55,7 @@
   flex-direction: column;
 }
 
-.header-form [type='button']:active {
+.header-form .button:active {
   box-shadow: 1px 1px 0px 0px var(--color-white);
 } 
 
