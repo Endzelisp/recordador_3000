@@ -36,7 +36,7 @@ const createAssignmentObject = function(date, subject, assignment) {
     date,
     subject,
     assignment,
-    id: Number.toString(Date.now()),
+    id: Date.now().toString(),
     isPending: true,
   }
 }
