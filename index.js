@@ -73,3 +73,61 @@ const MONTHS = [
   'Noviembre',
   'Diciembre',
 ]
+
+class AssignmentComponent extends HTMLElement {
+  constructor(props) {
+    super()
+    this.id = props.id;
+    this.dayOfWeek = DAYS[props.date.dayOfWeek];
+    this.dayOfMonth = props.date.day;
+    this.month = MONTHS[props.date.month];
+    this.year = props.date.year;
+    this.subject = props.subject;
+    this.assignment = props.assignment;
+    this.isPending = true;
+  }
+
+  connectedCallback() {
+    this.classList.add('assignment');
+    const subjectPara = document.createElement('p');
+    subjectPara.setAttribute('id', 'subject-text');
+    const assignmentPara = document.createElement('p');
+    assignmentPara.setAttribute('id', 'assignment-text');
+    
+    subjectPara.textContent = this.subject;
+    assignmentPara.textContent = this.assignment;
+    
+    const divDate = document.createElement('div');
+    const datePara = document.createElement('p');
+    const statusBtn = document.createElement('button');
+    statusBtn.setAttribute('data-type', 'status-button')
+
+    datePara.textContent = `${this.dayOfWeek} ${this.dayOfMonth} ${this.month} ${this.year}`;
+    statusBtn.textContent = '📫';
+
+    this.addEventListener('pointerdown', function(e) {
+      const statusBtnGotClicked = e.target.dataset.type === 'status-button';
+      if ( statusBtnGotClicked && this.isPending) {
+        this.isPending = false;
+        statusBtn.textContent = '✅';
+        return
+      }
+
+      if (!this.isPending && statusBtnGotClicked) {
+        activeAssignments = activeAssignments.filter((assignment) => this.id !== assignment.id);
+        writeLocalStrg(activeAssignments);
+        e.currentTarget.remove()
+      }
+
+    })
+    
+    divDate.append(datePara, statusBtn)
+    this.append(subjectPara, assignmentPara, divDate);
+  }
+
+  disconnectedCallback() {
+    
+  }
+}
+
+customElements.define('assignment-component', AssignmentComponent)
