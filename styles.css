@@ -61,3 +61,30 @@
   padding: 8px;
   overflow-y: auto;
 }
+
+.assignment {
+  --icon-font-size: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 8px;
+  padding-block: 8px;
+  border-bottom: 2px solid var(--color-deeppink);
+}
+
+.assignment > :first-child::before {
+  content: '📌';
+  padding-inline-end: 8px;
+  font-size: var(--icon-font-size);
+}
+
+.assignment > div {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.assignment button[data-type="status-button"] {
+  border: none;
+  font-size: var(--icon-font-size);
+}
