@@ -11,32 +11,36 @@
   <div class="container">
     <header class="header">
       <form action="#" class="header-form">
-        <label for="calendar">
-          Fecha
-          <input type="date" id="calendar">
-        </label>
-        <label for="subject">
-          Materia
-          <select id="subject-list">
-            <option value="">Selecciona la materia</option>
-            <option value="cas">Castellano</option>
-            <option value="mat">Matemática</option>
-            <option value="bio">Biología</option>
-            <option value="ghc">Geografía e Historia</option>
-            <option value="inf">Informática</option>
-            <option value="ap">Arte y Patrimonio</option>
-            <option value="ing">Inglés</option>
-            <option value="ptg">Portugués</option>
-            <option value="au">Agricultura urbana</option>
-            <option value="ef">Educación física</option>
-            <option value="to">Técnica de oficina</option>
-            <option value="oc">Orientación y Convivencia</option>
-          </select>
-        </label>
-        <label for="input-assignment">Compromiso
-          <input type="text" id="input-assignment">
-        </label>
-        <button type="button" id="btn-add-assignment" class="button">Agregar</button>
+        <div>
+          <label for="calendar">
+            Fecha
+            <input type="date" id="calendar">
+          </label>
+          <label for="subject">
+            Materia
+            <select id="subject-list">
+              <option value="">Selecciona la materia</option>
+              <option value="cas">Castellano</option>
+              <option value="mat">Matemática</option>
+              <option value="bio">Biología</option>
+              <option value="ghc">Geografía e Historia</option>
+              <option value="inf">Informática</option>
+              <option value="ap">Arte y Patrimonio</option>
+              <option value="ing">Inglés</option>
+              <option value="ptg">Portugués</option>
+              <option value="au">Agricultura urbana</option>
+              <option value="ef">Educación física</option>
+              <option value="to">Técnica de oficina</option>
+              <option value="oc">Orientación y Convivencia</option>
+            </select>
+          </label>
+        </div>
+        <div>
+          <label for="input-assignment">Compromiso
+            <input type="text" id="input-assignment">
+          </label>
+          <button type="button" id="btn-add-assignment" class="button">Agregar</button>
+        </div>
       </form>
     </header>
     <div class="assignment-container"></div>
