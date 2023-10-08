@@ -160,3 +160,11 @@ addAssignmentBtn.addEventListener('pointerdown', function() {
     assignmentContainer.appendChild(newAssignment)
   })
 })
+
+window.addEventListener('load', function() {
+  activeAssignments = readLocalStrg();
+  activeAssignments.forEach(assignment => {
+    const newAssignment = new AssignmentComponent(assignment)
+    assignmentContainer.appendChild(newAssignment)
+  })
+})
