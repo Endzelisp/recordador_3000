@@ -36,7 +36,8 @@ const createAssignmentObject = function(date, subject, assignment) {
     date,
     subject,
     assignment,
-    id: Number.toString(Date.now())
+    id: Number.toString(Date.now()),
+    isPending: true,
   }
 }
 
@@ -89,7 +90,7 @@ const MONTHS = [
 ]
 
 class AssignmentComponent extends HTMLElement {
-  constructor({id, date, subject, assignment}) {
+  constructor({id, date, subject, assignment, isPending}) {
     super()
     this.id = id;
     this.dayOfWeek = DAYS[date.dayOfWeek];
@@ -98,7 +99,7 @@ class AssignmentComponent extends HTMLElement {
     this.year = date.year;
     this.subject = subject;
     this.assignment = assignment;
-    this.isPending = true;
+    this.isPending = isPending;
   }
 
   connectedCallback() {
@@ -117,12 +118,15 @@ class AssignmentComponent extends HTMLElement {
     statusBtn.setAttribute('data-type', 'status-button')
 
     datePara.textContent = `${this.dayOfWeek} ${this.dayOfMonth} ${this.month} ${this.year}`;
-    statusBtn.textContent = '📫';
+    this.isPending ? statusBtn.textContent = '📫' : statusBtn.textContent = '✅';
 
     this.addEventListener('pointerdown', function(e) {
       const statusBtnGotClicked = e.target.dataset.type === 'status-button';
       if ( statusBtnGotClicked && this.isPending) {
+        const finishedAssignment = activeAssignments.find((item) => item.id === this.id);
+        finishedAssignment.isPending = false;
         this.isPending = false;
+        writeLocalStrg(activeAssignments);
         statusBtn.textContent = '✅';
         return
       }
