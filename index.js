@@ -25,6 +25,20 @@ const getDate = function(stringDate) {
   }
 }
 
+/**
+ * 
+ * @param {Object} date information object about the scheduled assignment 
+ * @param {string} subject subject of the pending assignment
+ * @param {string} assignment describing text of the pending assignment
+ */
+const createAssignmentObject = function(date, subject, assignment) {
+  return {
+    date,
+    subject,
+    assignment,
+    id: Number.toString(Date.now())
+  }
+}
 
 let activeAssignments = [];
 
