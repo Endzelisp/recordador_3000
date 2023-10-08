@@ -36,10 +36,17 @@
         <label for="input-assignment">Compromiso
           <input type="text" id="input-assignment">
         </label>
-        <button type="button" id="btn-add-assignment">Agregar</button>
+        <button type="button" id="btn-add-assignment" class="button">Agregar</button>
       </form>
     </header>
     <div class="assignment-container"></div>
+    <dialog class="dialog-modal" id="completedAssignment">
+      <p>Deseas marcar esta asignación como lista?</p>
+      <form method="dialog">
+        <button class="button" value="no" formmethod="dialog" autofocus>No</button>
+        <button class="button" value="pepito">Si</button>
+      </form>
+    </dialog>
   </div>
 </body>
 </html>
