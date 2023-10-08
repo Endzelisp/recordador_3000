@@ -4,6 +4,27 @@ const assignmentInputElem = document.querySelector('#input-assignment');
 const addAssignmentBtn = document.querySelector('.header-form #btn-add-assignment');
 const assignmentContainer = document.querySelector('.assignment-container');
 
+/**
+ * get a string containing a date in the format of YYYY-MM-DD
+ * and returns an object with the day, day of the week, month,
+ * year and the value in milliseconds since the epoch
+ * 
+ * @param {String} stringDate date represented as string
+ */
+const getDate = function(stringDate) {
+  const dateArr = stringDate
+    .split('-')
+    .map(item => Number.parseInt(item));
+  const date = new Date(dateArr[0], --dateArr[1], dateArr[2]);
+  return {
+    day: date.getDate(),
+    dayOfWeek: date.getDay(),
+    month: date.getMonth(),
+    year: date.getFullYear(),
+    epoch: date.valueOf(),
+  }
+}
+
 
 let activeAssignments = [];
 
