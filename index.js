@@ -131,3 +131,18 @@ class AssignmentComponent extends HTMLElement {
 }
 
 customElements.define('assignment-component', AssignmentComponent)
+
+addAssignmentBtn.addEventListener('pointerdown', function() {
+  const date = getDate(calendarInputElem.value);
+  const subject = SUBJECTS[subjectListElem.value];
+  const kindOfAssignment = assignmentInputElem.value;
+  const assignment = createAssignmentObject(date, subject, kindOfAssignment);
+  activeAssignments.push(assignment)
+  activeAssignments.sort((itemA, itemB) => itemA.date.epoch - itemB.date.epoch)
+  writeLocalStrg(activeAssignments);
+  assignmentContainer.innerHTML = '';
+  activeAssignments.forEach(assignment => {
+    const newAssignment = new AssignmentComponent(assignment)
+    assignmentContainer.appendChild(newAssignment)
+  })
+})
