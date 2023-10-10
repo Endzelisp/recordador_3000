@@ -89,6 +89,21 @@ const MONTHS = [
   'Diciembre',
 ]
 
+/**
+ * 
+ * @param {string} typeOf type of HTML element
+ * @param {object} attributes object with all the properties of the HMTL element
+ * @param {string} textContent text content of the HTML element
+ */
+const createHTMLElement = function(typeOf = 'div', attributes = {}, textContent = '') {
+  const elem = document.createElement(typeOf);
+  for (const attr in attributes) {
+    elem.setAttribute(attr, attributes[attr]);
+  };
+  elem.textContent = textContent;
+  return elem
+}
+
 class AssignmentComponent extends HTMLElement {
   constructor({id, date, subject, assignment, isPending}) {
     super()
@@ -104,22 +119,17 @@ class AssignmentComponent extends HTMLElement {
 
   connectedCallback() {
     this.classList.add('assignment');
-    const subjectPara = document.createElement('p');
-    subjectPara.setAttribute('id', 'subject-text');
-    const assignmentPara = document.createElement('p');
-    assignmentPara.setAttribute('id', 'assignment-text');
-    
-    subjectPara.textContent = this.subject;
-    assignmentPara.textContent = this.assignment;
-    
-    const pushpinSpan = document.createElement('span');
-    pushpinSpan.textContent = '📌';
-    const datePara = document.createElement('p');
-    datePara.setAttribute('id', 'assignment-date')
-    const statusBtn = document.createElement('button');
-    statusBtn.setAttribute('data-type', 'status-button')
+    const subjectPara = createHTMLElement('p', {id: 'subject-text'}, this.subject);
+    const assignmentPara = createHTMLElement('p', {id: 'assignment-text'}, this.assignment);
+    const pushpinSpan = createHTMLElement('span', {}, '📌')
+    const datePara = createHTMLElement(
+      'p',
+      {id: 'assignment-date'},
+      `${this.dayOfWeek} ${this.dayOfMonth} ${this.month} ${this.year}`
+      );
 
-    datePara.textContent = `${this.dayOfWeek} ${this.dayOfMonth} ${this.month} ${this.year}`;
+    const statusBtn = createHTMLElement('button', {'data-type': 'status-button'});
+    
     this.isPending ? statusBtn.textContent = '📫' : statusBtn.textContent = '✅';
 
     this.addEventListener('pointerdown', function(e) {
