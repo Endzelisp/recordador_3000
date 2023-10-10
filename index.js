@@ -118,37 +118,40 @@ class AssignmentComponent extends HTMLElement {
   }
 
   connectedCallback() {
-    this.classList.add('assignment');
-    const subjectPara = createHTMLElement('p', {id: 'subject-text'}, this.subject);
-    const assignmentPara = createHTMLElement('p', {id: 'assignment-text'}, this.assignment);
+    const component = this;
+    component.classList.add('assignment');
+    const subjectPara = createHTMLElement('p', {id: 'subject-text'}, component.subject);
+    const assignmentPara = createHTMLElement('p', {id: 'assignment-text'}, component.assignment);
     const pushpinSpan = createHTMLElement('span', {}, '📌')
     const datePara = createHTMLElement(
       'p',
       {id: 'assignment-date'},
-      `${this.dayOfWeek} ${this.dayOfMonth} ${this.month} ${this.year}`
+      `${component.dayOfWeek} ${component.dayOfMonth} ${component.month} ${component.year}`
       );
 
     const statusBtn = createHTMLElement('button', {'data-type': 'status-button'});
     
-    this.isPending ? statusBtn.textContent = '📫' : statusBtn.textContent = '✅';
+    component.isPending ? statusBtn.textContent = '📫' : statusBtn.textContent = '✅';
 
-    this.addEventListener('pointerdown', function(e) {
-      const statusBtnGotClicked = e.target.dataset.type === 'status-button';
-      if ( statusBtnGotClicked && this.isPending) {
-        const finishedAssignment = activeAssignments.find((item) => item.id === this.id);
+    statusBtn.addEventListener('pointerdown', function(e) {
+      if (component.isPending) {
+        const finishedAssignment = activeAssignments.find(
+          (item) => item.id === component.id
+        );
         finishedAssignment.isPending = false;
-        this.isPending = false;
+        component.isPending = false;
         writeLocalStrg(activeAssignments);
         statusBtn.textContent = '✅';
         return
       }
 
-      if (!this.isPending && statusBtnGotClicked) {
-        activeAssignments = activeAssignments.filter((assignment) => this.id !== assignment.id);
-        writeLocalStrg(activeAssignments);
-        e.currentTarget.remove()
-      }
+      // component.isPending false means the assignment was completed then
 
+      activeAssignments = activeAssignments.filter(
+        (assignment) => component.id !== assignment.id
+      );
+      writeLocalStrg(activeAssignments);
+      component.remove()
     })
 
     this.append(pushpinSpan, subjectPara, assignmentPara, datePara, statusBtn);
