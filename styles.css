@@ -63,6 +63,10 @@
   flex-grow: 1;
   padding: 8px;
   overflow-y: auto;
+  background-image: url(./img/cat-lover.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 
 .assignment {
@@ -76,6 +80,7 @@
     'pushpin date status';
   padding-inline: 8px;
   padding-block: 8px;
+  background-color: var(--color-white);
   border-bottom: 2px solid var(--color-deeppink);
 }
 
