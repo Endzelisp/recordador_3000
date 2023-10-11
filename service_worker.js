@@ -1,6 +1,7 @@
 const CACHE_NAME = 'V1_cache_recordador_3000';
 const urlsToCache = [
   './',
+  './index.html',
   './styles.css',
   './index.js',
   './img/cat-lover.png',
