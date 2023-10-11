@@ -1,3 +1,13 @@
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service_worker.js').then(registration => {
+      console.log('SW registered: ', registration);
+    }).catch(registrationError => {
+      console.log('SW registration failed: ', registrationError);
+    });
+  });
+}
+
 const calendarInputElem = document.querySelector('.header-form #calendar');
 const subjectListElem = document.querySelector('#subject-list');
 const assignmentInputElem = document.querySelector('#input-assignment');
