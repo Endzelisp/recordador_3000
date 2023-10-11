@@ -112,7 +112,7 @@
   background-color: transparent;
 }
 
-.dialog-modal#completedAssignment {
+.dialog-modal#confirm-modal {
   font-size: 1.25rem;
   max-width: 340px;
   border: 2px solid var(--color-light-blue);
@@ -121,7 +121,7 @@
   border-radius: 5px 15px;
 }
 
-.dialog-modal#completedAssignment form {
+.dialog-modal#confirm-modal form {
   display: flex;
   justify-content: center;
   gap: 16px;
@@ -129,7 +129,7 @@
   padding-block-start: 16px;
 }
 
-.dialog-modal#completedAssignment::backdrop {
+.dialog-modal#confirm-modal::backdrop {
   background-color: hsla(0, 0%, 40%, 0.5);
   backdrop-filter: blur(5px);
 }
