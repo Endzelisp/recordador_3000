@@ -3,6 +3,7 @@ const subjectListElem = document.querySelector('#subject-list');
 const assignmentInputElem = document.querySelector('#input-assignment');
 const addAssignmentBtn = document.querySelector('.header-form #btn-add-assignment');
 const assignmentContainer = document.querySelector('.assignment-container');
+const modalConfirm = document.querySelector('.dialog-modal#confirm-modal')
 
 /**
  * get a string containing a date in the format of YYYY-MM-DD
@@ -104,6 +105,9 @@ const createHTMLElement = function(typeOf = 'div', attributes = {}, textContent 
   return elem
 }
 
+// Store the component that fired the confirmation modal
+let componentThatFiredModal;
+
 class AssignmentComponent extends HTMLElement {
   constructor({id, date, subject, assignment, isPending}) {
     super()
@@ -115,6 +119,21 @@ class AssignmentComponent extends HTMLElement {
     this.subject = subject;
     this.assignment = assignment;
     this.isPending = isPending;
+  }
+
+  isCompleted() {
+    return !this.isPending
+  }
+
+  markAsCompleted() {
+    const statusBtn = this.querySelector('button');
+    const finishedAssignment = activeAssignments.find(
+      (item) => item.id === this.id
+    );
+    finishedAssignment.isPending = false;
+    this.isPending = false;
+    writeLocalStrg(activeAssignments);
+    statusBtn.textContent = '✅';
   }
 
   connectedCallback() {
@@ -133,32 +152,31 @@ class AssignmentComponent extends HTMLElement {
     
     component.isPending ? statusBtn.textContent = '📫' : statusBtn.textContent = '✅';
 
-    statusBtn.addEventListener('pointerdown', function(e) {
+    statusBtn.addEventListener('pointerdown', function() {
+      const modalQuestion = modalConfirm.querySelector('p');
+      componentThatFiredModal = component;
       if (component.isPending) {
-        const finishedAssignment = activeAssignments.find(
-          (item) => item.id === component.id
-        );
-        finishedAssignment.isPending = false;
-        component.isPending = false;
-        writeLocalStrg(activeAssignments);
-        statusBtn.textContent = '✅';
+        modalQuestion.textContent = 'Deseas marcar esta asignación como lista?'
+        modalConfirm.showModal();
         return
       }
 
       // component.isPending false means the assignment was completed then
-
-      activeAssignments = activeAssignments.filter(
-        (assignment) => component.id !== assignment.id
-      );
-      writeLocalStrg(activeAssignments);
-      component.remove()
+      modalQuestion.textContent = 'Deseas eliminar esta asignación?'
+      modalConfirm.showModal();
     })
 
     this.append(pushpinSpan, subjectPara, assignmentPara, datePara, statusBtn);
   }
 
-  disconnectedCallback() {
-    
+  removeComponent() {
+    if (this.isCompleted()) {
+      activeAssignments = activeAssignments.filter(
+        (assignment) => this.id !== assignment.id
+      );
+      writeLocalStrg(activeAssignments);
+      this.remove()
+    }
   }
 }
 
@@ -180,6 +198,16 @@ addAssignmentBtn.addEventListener('pointerdown', function() {
     const newAssignment = new AssignmentComponent(assignment)
     assignmentContainer.appendChild(newAssignment)
   })
+})
+
+modalConfirm.addEventListener('close', function(e) {
+  const isCompleted = componentThatFiredModal.isCompleted();
+  if (!isCompleted && this.returnValue === 'yes') {
+    componentThatFiredModal.markAsCompleted()
+  }
+  if (isCompleted && this.returnValue === 'yes') {
+    componentThatFiredModal.removeComponent()
+  }
 })
 
 window.addEventListener('load', function() {
